@@ -31,7 +31,7 @@ function usage() {
     cat << EOF
 Usage:
     The tool can help you to configure network team automatically.
-    Please run such as './nikoyo_team_v2.sh --team_device teamservice --team_type lacp --team_ports "eno1,eno2"'
+    Please run such as './centos7_create_team.sh --team_device teamservice --team_type lacp --team_ports "eno1,eno2"'
 
 Options:
   --help | -h

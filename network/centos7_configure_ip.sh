@@ -32,10 +32,10 @@ function usage() {
 Usage:
     The tool can help you to configure network ip address automatically.
     Please run such as:
-        ./nikoyo_configure_ip_v2.sh --vlan_device teamdata --vlan_name cnaddr --vlan_id 100
-        ./nikoyo_configure_ip_v2.sh --vlan_device teamdata --vlan_name pnaddr --vlan_id 101
-        ./nikoyo_configure_ip_v2.sh --connection teamservice-master --bootproto DHCP
-        ./nikoyo_configure_ip_v2.sh --connection pnaddr --bootproto static --address 172.18.0.11 --netmask 24
+        ./centos7_configure_ip.sh --vlan_device teamdata --vlan_name cnaddr --vlan_id 100
+        ./centos7_configure_ip.sh --vlan_device teamdata --vlan_name pnaddr --vlan_id 101
+        ./centos7_configure_ip.sh --connection teamservice-master --bootproto DHCP
+        ./centos7_configure_ip.sh --connection pnaddr --bootproto static --address 172.18.0.11 --netmask 24
 
 Options:
   --help | -h
