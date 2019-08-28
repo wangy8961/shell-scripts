@@ -1,0 +1,55 @@
+# 1. 安装 NetworkManager-config-routing-rules
+
+CentOS 默认使用 `NetworkManager` 来管理网络，所以需要安装一个插件包来支持 Policy-based routing
+
+```bash
+# yum install NetworkManager-config-routing-rules
+```
+
+# 2. 启动 NetworkManager-dispatcher 服务
+
+```bash
+# systemctl enable NetworkManager-dispatcher.service
+# systemctl start NetworkManager-dispatcher.service
+```
+
+# 3. 新增路由表
+
+```bash
+添加自定义的策略路由表，ID 需要小于 253
+# echo '200 s3' >> /etc/iproute2/rt_tables
+```
+
+# 4. 添加路由规则
+
+在 `/etc/sysconfig/network-scripts/` 目录下添加 `route-xxx` 和 `rule-xxx`，其中 xxx 是网络接口名称，比如 `s3addr`（VLAN 名称），假设此 VLAN 创建在 team1.5 聚合设备上，所以：
+
+`route-s3addr` 的内容如下：
+
+```bash
+default via 172.18.0.1 dev team1.5 src 172.18.0.11 table s3
+```
+
+`rule-s3addr` 的内容如下：
+
+```bash
+from 172.18.0.11 table s3
+```
+
+# 5. 重启系统或网络服务
+
+# 6. 检查
+
+```bash
+# ip route show
+
+# ip rule show
+```
+
+如果规则不对，可以用 `ip route flush table s3` 清空路由表
+
+
+> **参考：**
+
+- [Redhat Network Guide - Understanding Policy-routing](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-Configuring_Static_Routes_in_ifcfg_files#sec-Understanding_Policy-routing)
+- [How do I create CentOS 7 Persistent Policy-Based-Routing Rules?](https://unix.stackexchange.com/questions/354854/how-do-i-create-centos-7-persistent-policy-based-routing-rules#answer-354948)
